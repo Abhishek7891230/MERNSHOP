@@ -26,7 +26,10 @@
 
 ## Integration Validation
 - [ ] Register new user.
+- [ ] Verification email received.
+- [ ] Email verification link opens `/verify-email` and succeeds.
 - [ ] Login/logout.
+- [ ] Google login works.
 - [ ] Product list pagination loads.
 - [ ] Add/remove cart items.
 - [ ] Place order.

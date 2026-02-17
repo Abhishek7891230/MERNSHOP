@@ -23,3 +23,8 @@
 
 ## Notes
 - Existing real credentials detected in local `server/.env`; rotate before public push.
+- Added advanced auth flow:
+  - Email verification token generation and verification endpoint.
+  - SMTP-based verification email support.
+  - Google OAuth login endpoint with ID token verification.
+  - Frontend verification page and Google login UI.

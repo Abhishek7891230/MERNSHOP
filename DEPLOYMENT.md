@@ -130,3 +130,28 @@ Local development can still use:
 2. Commit and push to GitHub.
 3. Render and Netlify auto-deploy from the connected branch.
 4. Re-test key user flows after each deployment.
+
+## 7. Email Verification Setup
+
+Set these backend vars on Render:
+
+- `CLIENT_APP_URL` = your Netlify app URL (for example `https://your-site.netlify.app`)
+- `SMTP_HOST` = SMTP host (for Gmail: `smtp.gmail.com`)
+- `SMTP_PORT` = `587`
+- `SMTP_SECURE` = `false`
+- `SMTP_USER` = SMTP username/email
+- `SMTP_PASS` = SMTP password or app password
+- `SMTP_FROM` = sender address shown in emails
+
+If SMTP vars are missing, backend still registers users but only logs verification links in server logs.
+
+## 8. Google Login Setup
+
+1. Create OAuth 2.0 Web client in Google Cloud Console.
+2. Authorized JavaScript origins:
+   - `http://localhost:5173`
+   - `https://your-site.netlify.app`
+3. Set env vars:
+   - Render: `GOOGLE_CLIENT_ID=<google web client id>`
+   - Netlify: `VITE_GOOGLE_CLIENT_ID=<same google web client id>`
+4. Redeploy backend and frontend.

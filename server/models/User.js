@@ -13,9 +13,25 @@ const userSchema = new mongoose.Schema({
         unique: true,
         lowercase: true
     },
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    googleId: {
+        type: String,
+        default: null
+    },
     password: {
         type: String,
         required: true
+    },
+    verificationToken: {
+        type: String,
+        default: null
+    },
+    verificationTokenExpires: {
+        type: Date,
+        default: null
     },
     cart: [
         {

@@ -53,6 +53,30 @@
     text-align: center;
 }
 
+.auth-success {
+    color: #0f7a39;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.auth-note {
+    color: #555;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    text-align: center;
+}
+
+.auth-divider {
+    text-align: center;
+    margin: 1rem 0;
+    color: #666;
+}
+
+.google-login-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
 .auth-redirect {
     text-align: center;
     margin-top: 1rem;

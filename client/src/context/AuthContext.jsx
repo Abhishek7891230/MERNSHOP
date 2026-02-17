@@ -1,4 +1,4 @@
-﻿import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import apiClient from '../utils/apiClient';
 
 const AuthContext = createContext();
@@ -26,6 +26,16 @@ export const AuthProvider = ({ children }) => {
         const { data } = await apiClient.post('/api/auth/register', {
             username, email, password, confirmPassword
         });
+        return data;
+    };
+
+    const verifyEmail = async (email, token) => {
+        const { data } = await apiClient.post('/api/auth/verify-email', { email, token });
+        return data;
+    };
+
+    const googleLogin = async (credential) => {
+        const { data } = await apiClient.post('/api/auth/google', { credential });
         setUser(data);
         localStorage.setItem('user', JSON.stringify(data));
         return data;
@@ -37,7 +47,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+        <AuthContext.Provider value={{ user, loading, login, register, verifyEmail, googleLogin, logout }}>
             {children}
         </AuthContext.Provider>
     );

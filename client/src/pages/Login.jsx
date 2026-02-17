@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
 import AuthContext from '../context/AuthContext';
 import '../styles/Login.css';
 
@@ -7,8 +8,9 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const { login } = useContext(AuthContext);
+    const { login, googleLogin } = useContext(AuthContext);
     const navigate = useNavigate();
+    const hasGoogleClientId = Boolean(import.meta.env.VITE_GOOGLE_CLIENT_ID);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,6 +19,15 @@ const Login = () => {
             navigate('/');
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed');
+        }
+    };
+
+    const handleGoogleSuccess = async (credentialResponse) => {
+        try {
+            await googleLogin(credentialResponse.credential);
+            navigate('/');
+        } catch (err) {
+            setError(err.response?.data?.message || 'Google login failed');
         }
     };
 
@@ -45,6 +56,17 @@ const Login = () => {
                 </div>
                 <button type="submit" className="btn-auth">Login</button>
             </form>
+            <div className="auth-divider">or</div>
+            {hasGoogleClientId ? (
+                <div className="google-login-wrapper">
+                    <GoogleLogin
+                        onSuccess={handleGoogleSuccess}
+                        onError={() => setError('Google login failed')}
+                    />
+                </div>
+            ) : (
+                <div className="auth-note">Google login is disabled. Add VITE_GOOGLE_CLIENT_ID to enable it.</div>
+            )}
             <div className="auth-redirect">
                 <p>New customer? <Link to="/signup">Register</Link></p>
             </div>
