@@ -5,22 +5,15 @@ const connectDB = require("./config/db");
 
 const app = express();
 
-// Render/other proxies sit in front of Express; trust first proxy for accurate IPs.
 app.set("trust proxy", 1);
 
-// CORS Configuration for Production
-const allowedOrigins = (
-  process.env.CLIENT_URLS ||
-  process.env.CLIENT_URL ||
-  "http://localhost:5173,http://localhost:3000"
-)
+const allowedOrigins = (process.env.CLIENT_URL || "")
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow non-browser tools (curl/Postman) and allowed browser origins.
     if (!origin || allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
@@ -30,21 +23,17 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 
-// Middleware
 app.use(express.json());
 app.use(cors(corsOptions));
 
-// Connect to Database
 connectDB();
 
-// Routes
 const authRoutes = require("./routes/auth");
 const productRoutes = require("./routes/products");
 const cartRoutes = require("./routes/cart");
 const orderRoutes = require("./routes/orders");
 const limiter = require("./middleware/rateLimiter");
 
-// Rate Limiting
 app.use(limiter);
 
 app.use("/api/auth", authRoutes);
