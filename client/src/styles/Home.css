@@ -1,0 +1,30 @@
+.home-container {
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.home-container h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.home-container p {
+    font-size: 1.5rem;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.btn-shop {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 1.25rem;
+    transition: background-color 0.3s;
+}
+
+.btn-shop:hover {
+    background-color: #555;
+}
